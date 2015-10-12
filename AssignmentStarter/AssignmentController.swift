@@ -33,14 +33,13 @@ class AssignmentController: UITableViewController {
     
     let fetchRequest = NSFetchRequest(entityName: "Assignment")
     
-    var error: NSError?
-    
-    if let fetchedResults = moc.executeFetchRequest(fetchRequest, error: &error) as! [Assignment]? {
+    do  {
+    let fetchedResults = try moc.executeFetchRequest(fetchRequest, error: &error) as! [Assignment] {
       assignments = fetchedResults
       tableView.reloadData()
       println(assignments.count)
-    } else {
-      println("Could not retrieve any results \(error), \(error?.userInfo)")
+    } catch {
+      print("Could not retrieve any results \(error)")
     }
   }
   
